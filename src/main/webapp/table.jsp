@@ -11,24 +11,25 @@
 //    SQLConnector connector = new SQLConnector();
     String username;
     String sessionID;
-
+    boolean loggedIn;
 %>
 <nav class="header">
     <%
         Cookie[] cookies = request.getCookies();
-        if(request.getAttribute("logged") != null && (boolean) request.getAttribute("logged")) {
-            if(cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if(cookie.getName().equals("username")) username = cookie.getValue();
-                    if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-                }
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("username")) username = cookie.getValue();
+                if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
+                if(cookie.getName().equals("logged")) loggedIn = cookie.getValue().equals("true");
             }
-            out.println("<button class ='btn btn-add' type = 'button' onclick = 'location.href = \"/logout\"' > Logout </button>");
-        } else if(request.getAttribute("logged") == null || !(boolean) request.getAttribute("logged")) {
-            out.println("<button class ='btn btn-add' type = 'button' onclick = 'location.href = \"login.jsp\"' > Login </button>");
+        }
+        if(loggedIn) {
+            out.println("<form method=\"post\" action=\"/logout\"><button class ='btn btn-add' type = 'submit'> Logout </button></form>");
+            out.print("<h3>"+username+" | "+ sessionID+"</h3>");
+        } else {
+            out.println("<form method=\"post\" action=\"login.jsp\"><button class ='btn btn-add' type = 'submit'> Login </button></form>");
        }
     %>
-
 </nav>
 <body>
     <div id="root">

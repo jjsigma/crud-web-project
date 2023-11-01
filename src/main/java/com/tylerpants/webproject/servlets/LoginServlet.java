@@ -21,7 +21,10 @@ public class LoginServlet extends HttpServlet {
         passwordCookie.setMaxAge(24*60*60);
         resp.addCookie(passwordCookie);
 
-        req.setAttribute("logged", true);
+        Cookie loggedCookie = new Cookie("logged", "true");
+        loggedCookie.setMaxAge(24*60*60);
+        resp.addCookie(loggedCookie);
+
         System.out.println("Login servlet");
         resp.sendRedirect("/");
     }

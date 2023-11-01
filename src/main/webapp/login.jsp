@@ -7,7 +7,7 @@
 <body>
 <div class="container">
     <h1>Log in</h1>
-    <form action="${pageContext.request.contextPath}/login" method="post">
+    <form action="${pageContext.request.contextPath}/login" method="get">
         <fieldset>
             <label>Username</label>
             <label>
