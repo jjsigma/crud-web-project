@@ -1,4 +1,4 @@
-<%@ page import="com.tylerpants.webproject.sql.SQLConnector" %>
+<%@ page import="com.tylerpants.webproject.sql.UserSQLConnector" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,6 +18,7 @@
         Cookie[] cookies = request.getCookies();
         if(cookies != null) {
             for (Cookie cookie : cookies) {
+                System.out.println(cookie.getName()+"="+cookie.getValue());
                 if(cookie.getName().equals("username")) username = cookie.getValue();
                 if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
                 if(cookie.getName().equals("logged")) loggedIn = cookie.getValue().equals("true");
