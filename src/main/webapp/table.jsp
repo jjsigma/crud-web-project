@@ -3,15 +3,33 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="30"> <%--Изучить!!!--%>
+    <meta http-equiv="refresh" content="30">  <%-- !!! --%>
     <title>Phone Book</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <%!
 //    SQLConnector connector = new SQLConnector();
+    String username;
+    String sessionID;
 
 %>
-<%@ include file="header.jsp"%>
+<nav class="header">
+    <%
+        Cookie[] cookies = request.getCookies();
+        if(request.getAttribute("logged") != null && (boolean) request.getAttribute("logged")) {
+            if(cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if(cookie.getName().equals("username")) username = cookie.getValue();
+                    if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
+                }
+            }
+            out.println("<button class ='btn btn-add' type = 'button' onclick = 'location.href = \"/logout\"' > Logout </button>");
+        } else if(request.getAttribute("logged") == null || !(boolean) request.getAttribute("logged")) {
+            out.println("<button class ='btn btn-add' type = 'button' onclick = 'location.href = \"login.jsp\"' > Login </button>");
+       }
+    %>
+
+</nav>
 <body>
     <div id="root">
         <div class="container">

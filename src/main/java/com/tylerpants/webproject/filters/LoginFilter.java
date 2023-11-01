@@ -32,6 +32,7 @@ public class LoginFilter implements Filter {
             RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("login.jsp");
             dispatcher.forward(servletRequest, servletResponse);
         }
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
