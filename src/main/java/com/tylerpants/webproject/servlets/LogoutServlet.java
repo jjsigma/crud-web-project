@@ -14,10 +14,9 @@ public class LogoutServlet extends HttpServlet {
         resp.getWriter().println("Logout action");
         this.eraseCookie(req,resp);
         this.invalidateSession(req,resp);
-
-        Cookie loggedCookie = new Cookie("logged", "false");
-        loggedCookie.setMaxAge(-1);
-        resp.addCookie(loggedCookie);
+        Cookie loggedInCookie = new Cookie("logged", "false");
+        loggedInCookie.setMaxAge(-1);
+        resp.addCookie(loggedInCookie);
 
         resp.sendRedirect("/");
     }

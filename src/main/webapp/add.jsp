@@ -5,12 +5,6 @@
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-<%!
-    private static boolean checkToSubmit() {
-        // ДОписапььАвьаб
-        return true;
-    }
-%>
 <div id="root">
     <div class="container">
         <h1>Phone book</h1>

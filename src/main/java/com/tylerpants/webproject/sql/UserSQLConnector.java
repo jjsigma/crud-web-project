@@ -1,10 +1,7 @@
 package com.tylerpants.webproject.sql;
 
-import com.tylerpants.webproject.Contact;
 import com.tylerpants.webproject.User;
-
 import java.sql.*;
-import java.util.List;
 import java.util.Objects;
 
 public class UserSQLConnector {
