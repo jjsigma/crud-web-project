@@ -1,4 +1,4 @@
-<%@ page import="com.tylerpants.webproject.sql.UserSQLConnector" %>
+<%@ page import="com.tylerpants.webproject.sql.ContactsSQLConnector" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <%!
-    int userId;
-    String username;
-    String sessionID;
-    boolean loggedIn;
+    private int userId;
+    private String username;
+    private String sessionID;
+    private boolean loggedIn;
+    private final ContactsSQLConnector userSQLConnector = new ContactsSQLConnector();
 %>
 <nav class="header">
     <%
@@ -51,6 +52,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <% if(!loggedIn) { %>
                 <tr>
                     <td>0</td>
                     <td>John</td>
@@ -63,6 +65,9 @@
                         <button class="btn btn-delete" onclick="location.href = '/delete'">Delete</button>
                     </td>
                 </tr>
+                <%} else {
+
+                }%>
                 </tbody>
             </table>
             <form method="get" action="${pageContext.request.contextPath}/add">
@@ -73,9 +78,4 @@
         </div>
     </div>
 </body>
-<%--<script type="text/javascript">--%>
-<%--    document.getElementById("update").onclick = function () {--%>
-<%--        location.href = --%>
-<%--    }--%>
-<%--</script>--%>
 </html>

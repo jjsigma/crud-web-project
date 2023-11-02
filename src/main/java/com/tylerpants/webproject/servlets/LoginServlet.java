@@ -39,9 +39,9 @@ public class LoginServlet extends HttpServlet {
             resp.addCookie(usernameCookie);
 
             //// UNSAFE BRO !!!???!??!?!??!?!!??!?!??!?1?!?!??!
-            Cookie passwordCookie = new Cookie("password", req.getParameter("password"));
-            passwordCookie.setMaxAge(24 * 60 * 60);
-            resp.addCookie(passwordCookie);
+//            Cookie passwordCookie = new Cookie("password", req.getParameter("password"));
+//            passwordCookie.setMaxAge(24 * 60 * 60);
+//            resp.addCookie(passwordCookie);
 
             Cookie loggedCookie = new Cookie("logged", "true");
             loggedCookie.setMaxAge(24 * 60 * 60);
