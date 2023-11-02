@@ -10,7 +10,6 @@ import java.util.Objects;
 public class UserSQLConnector {
     private final Connection connection;
     private final Statement statement;
-    private int userId;
     private static final String url = "jdbc:mysql://localhost:3306/web_project_db",
             user = "root",
             password = "root";
@@ -29,8 +28,7 @@ public class UserSQLConnector {
         ResultSet resultSet = getUserResultSet(username);
 
         if(!resultSet.next()) return -1;
-        this.userId = resultSet.getInt("id");
-        return this.userId;
+        return resultSet.getInt("id");
     }
     public boolean checkIfUsernameExists(String username) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM users WHERE username = '%s'", username));

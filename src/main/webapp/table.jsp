@@ -1,4 +1,6 @@
 <%@ page import="com.tylerpants.webproject.sql.ContactsSQLConnector" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.tylerpants.webproject.Contact" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,6 +15,7 @@
     private String sessionID;
     private boolean loggedIn;
     private final ContactsSQLConnector userSQLConnector = new ContactsSQLConnector();
+    private List<Contact> contacts;
 %>
 <nav class="header">
     <%
@@ -27,8 +30,9 @@
         }
         if(loggedIn) {
             out.println("<form method=\"post\" action=\"/logout\"><button class ='btn btn-add' type = 'submit'> Logout </button></form>");
-            out.print("<h3>"+ username +" | "+ sessionID +"</h3>");
-            out.print("<h3>"+ userId+"</h3>");
+            out.print("<h3>"+ username +" | "+ userId +"</h3>");
+            out.print("<h3>JSESSIONID: "+ sessionID+"</h3>");
+            contacts = userSQLConnector.getContactsById(userId);
         } else {
             response.addCookie(new Cookie("logged", "false"));
             out.println("<form method=\"post\" action=\"login.jsp\"><button class ='btn btn-add' type = 'submit'> Login </button></form>");
@@ -43,7 +47,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Name</th>
                     <th>Surname</th>
                     <th>Phone number</th>
@@ -52,9 +55,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% if(!loggedIn) { %>
+                <% if(!loggedIn || contacts == null) { %>
                 <tr>
-                    <td>0</td>
                     <td>John</td>
                     <td>Doe</td>
                     <td>+12345678910</td>
@@ -62,11 +64,20 @@
                         <button class="btn btn-update" onclick="location.href= '/update'">Update</button>
                     </td>
                     <td>
-                        <button class="btn btn-delete" onclick="location.href = '/delete'">Delete</button>
+                        <button class="btn btn-delete" onclick="location.href= '/delete'">Delete</button>
                     </td>
                 </tr>
                 <%} else {
-
+                    List<Contact> contacts = userSQLConnector.getContactsById(userId);
+                    out.println("<tr>");
+                    for(Contact c : contacts) {
+                        out.println("<td>"+c.getName()+"</td>");
+                        out.println("<td>"+c.getSurname()+"</td>");
+                        out.println("<td>"+c.getPhoneNumber()+"</td>");
+                        out.println("<td><button class=\"btn btn-update\" onclick=\"location.href= '/update'\">Update</button></td>");
+                        out.println("<td><button class=\"btn btn-delete\" onclick=\"location.href= '/delete'\">Delete</button></td>");
+                    }
+                    out.println("</tr>");
                 }%>
                 </tbody>
             </table>
