@@ -19,9 +19,9 @@
         if(cookies != null) {
             for (Cookie cookie : cookies) {
                 if(cookie.getName().equals("userId")) userId = Integer.parseInt(cookie.getValue());
-                if(cookie.getName().equals("username")) username = cookie.getValue();
-                if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-                if(cookie.getName().equals("logged")) loggedIn = cookie.getValue().equals("true");
+                else if(cookie.getName().equals("username")) username = cookie.getValue();
+                else if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
+                else if(cookie.getName().equals("logged")) loggedIn = cookie.getValue().equals("true");
             }
         }
         if(loggedIn) {
@@ -29,6 +29,7 @@
             out.print("<h3>"+ username +" | "+ sessionID +"</h3>");
             out.print("<h3>"+ userId+"</h3>");
         } else {
+            response.addCookie(new Cookie("logged", "false"));
             out.println("<form method=\"post\" action=\"login.jsp\"><button class ='btn btn-add' type = 'submit'> Login </button></form>");
        }
     %>

@@ -26,6 +26,8 @@
                 out.println("<div class='error-message'>Username is invalid</div>");
             } else if(request.getAttribute("passwordError") != null && (boolean) request.getAttribute("passwordError")) {
                 out.println("<div class='error-message'>Password is invalid</div>");
+            } else if(request.getAttribute("dataInvalid") != null && (boolean) request.getAttribute("dataInvalid")) {
+                out.println("<div class='error-message'>Password is incorrect</div>");
             }
         %>
     </form>

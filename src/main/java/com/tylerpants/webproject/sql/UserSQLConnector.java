@@ -5,6 +5,7 @@ import com.tylerpants.webproject.User;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Objects;
 
 public class UserSQLConnector {
     private final Connection connection;
@@ -16,7 +17,7 @@ public class UserSQLConnector {
 
     public UserSQLConnector() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
         } catch (SQLException | ClassNotFoundException e) {
@@ -43,6 +44,17 @@ public class UserSQLConnector {
     }
     public User getUser(String username) throws SQLException {
         ResultSet resultSet = getUserResultSet(username);
-        return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
+        if(resultSet.next()) {
+            return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
+        }
+        return null; // !!!
+    }
+    public boolean checkIfValid(String username, String password) throws SQLException {
+        ResultSet resultSet = getUserResultSet(username);
+        String pass = null;
+        if (resultSet.next()) {
+            pass = resultSet.getString("password");
+        }
+        return Objects.requireNonNull(pass).equals(password);
     }
 }
