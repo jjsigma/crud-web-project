@@ -1,9 +1,11 @@
 package com.tylerpants.webproject;
 
+import java.util.Objects;
+
 public class User {
-    private String username;
-    private String password;
-    private int id;
+    private final String username;
+    private final String password;
+    private final int id;
 
     public String getName() {
         return username;
@@ -20,23 +22,13 @@ public class User {
         this.password = password;
         this.id = id;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getId() {
         return id;
     }
     private int generateId(String username, String password) {
-        return (int) (37 * username.hashCode() + (Math.random() * 10) * password.hashCode());
+        return Math.abs(37 * Objects.hash(username, password));
     }
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <%!
-//    SQLConnector connector = new SQLConnector();
+    int userId;
     String username;
     String sessionID;
     boolean loggedIn;
@@ -18,7 +18,7 @@
         Cookie[] cookies = request.getCookies();
         if(cookies != null) {
             for (Cookie cookie : cookies) {
-                System.out.println(cookie.getName()+"="+cookie.getValue());
+                if(cookie.getName().equals("userId")) userId = Integer.parseInt(cookie.getValue());
                 if(cookie.getName().equals("username")) username = cookie.getValue();
                 if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
                 if(cookie.getName().equals("logged")) loggedIn = cookie.getValue().equals("true");
@@ -26,7 +26,8 @@
         }
         if(loggedIn) {
             out.println("<form method=\"post\" action=\"/logout\"><button class ='btn btn-add' type = 'submit'> Logout </button></form>");
-            out.print("<h3>"+username+" | "+ sessionID+"</h3>");
+            out.print("<h3>"+ username +" | "+ sessionID +"</h3>");
+            out.print("<h3>"+ userId+"</h3>");
         } else {
             out.println("<form method=\"post\" action=\"login.jsp\"><button class ='btn btn-add' type = 'submit'> Login </button></form>");
        }

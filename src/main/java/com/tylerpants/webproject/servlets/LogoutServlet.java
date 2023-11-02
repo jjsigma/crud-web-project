@@ -4,10 +4,7 @@ import com.tylerpants.webproject.sql.UserSQLConnector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/logout")
@@ -16,7 +13,13 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().println("Logout action");
         this.eraseCookie(req,resp);
+        this.invalidateSession(req,resp);
 
+        Cookie loggedCookie = new Cookie("logged", "false");
+        loggedCookie.setMaxAge(-1);
+        resp.addCookie(loggedCookie);
+
+        resp.sendRedirect("/");
     }
     private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
         Cookie[] cookies = req.getCookies();
@@ -27,6 +30,12 @@ public class LogoutServlet extends HttpServlet {
                 cookie.setMaxAge(0);
                 resp.addCookie(cookie);
             }
+        }
+    }
+    private void invalidateSession(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if(session != null) {
+            session.invalidate();
         }
     }
 

@@ -16,9 +16,10 @@ public class UserSQLConnector {
 
     public UserSQLConnector() {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -31,7 +32,7 @@ public class UserSQLConnector {
         return this.userId;
     }
     public boolean checkIfUsernameExists(String username) throws SQLException {
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE username = "+username);
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM users WHERE username = '%s'", username));
         return resultSet.next();
     }
     public void createUser(User user) throws SQLException {
