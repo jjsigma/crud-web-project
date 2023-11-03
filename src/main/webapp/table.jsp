@@ -1,13 +1,16 @@
 <%@ page import="com.tylerpants.webproject.sql.ContactsSQLConnector" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.tylerpants.webproject.Contact" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <noscript>Enable JavaScript !</noscript>
     <meta charset="utf-8">
     <meta http-equiv="refresh" content="60">  <%-- !!! --%>
     <title>Phone Book</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 </head>
 <%!
     private int userId;
@@ -64,38 +67,67 @@
                     <td>Doe</td>
                     <td>+12345678910</td>
                     <td>
-                        <button class="btn btn-update" onclick="location.href= '/update'">Update</button>
+                        <button class="btn btn-update" onclick="buttonNoLogin()">Update</button>
                     </td>
                     <td>
-                        <button class="btn btn-delete" onclick="location.href= '/delete'">Delete</button>
+                        <button class="btn btn-delete" onclick="buttonNoLogin()">Delete</button>
                     </td>
                 </tr>
                 <%} else {
                     List<Contact> contacts = userSQLConnector.getContactsById();
-                    for(Contact c : contacts) {
+                    for(int i = 0; i < contacts.size(); i++) {
                         out.println("<tr>");
-                        out.println("<td>"+c.getName()+"</td>");
-                        out.println("<td>"+c.getSurname()+"</td>");
-                        out.println("<td>"+c.getPhoneNumber()+"</td>");
-                        out.println("<td><button class=\"btn btn-update\" onclick=\"location.href= '/update'\">Update</button></td>");
-                        out.println("<td><button class=\"btn btn-delete\" onclick=\"location.href= '/delete'\">Delete</button></td>");
+                        out.println("<td id = \"name" + i + "\">"+contacts.get(i).getName()+"</td>");
+                        out.println("<td id = \"surname" + i + "\">"+contacts.get(i).getSurname()+"</td>");
+                        out.println("<td id = \"phone_number" + i + "\">"+contacts.get(i).getPhoneNumber()+"</td>");
+                        %>
+                        <td><button id = "update<%= i %>" class="btn btn-update" onclick="updateContact(<%= i %>)">Update</button></td>
+                        <td><button id = "delete<%= i %>" class="btn btn-delete" onclick="location.href= '/delete'">Delete</button></td>
+                <%
                         out.println("</tr>");
                     }
                 }%>
                 </tbody>
             </table>
-            <form method="get" action="${pageContext.request.contextPath}/add">
                 <div class="container">
-                    <button class="btn btn-add" type="submit">Add</button>
+                    <button class="btn btn-add" type="submit" onclick="checkLoggedCookie()">Add</button>
                 </div>
-                <%
-                    if(request.getAttribute("notLogged") != null && request.getAttribute("notLogged").equals("true")) {
-                        out.println("<div class='error-message'>Login to use it</div>");
-                        request.setAttribute("notLogged", null);
-                    }
-                %>
-            </form>
         </div>
     </div>
 </body>
+<script>
+    function updateContact(i) {
+         const text = '?name=' + document.getElementById("name" + i).innerText + '&surname=' + document.getElementById("surname" + i).innerText + '&phone_number=' + document.getElementById("phone_number" + i).innerText;
+        location.href = '/update'+text;
+    }
+    function deleteContact(i) {
+        const text = '?name=' + document.getElementById("name" + i).innerText + '&surname=' + document.getElementById("surname" + i).innerText + '&phone_number=' + document.getElementById("phone_number" + i).innerText;
+
+    }
+    function buttonNoLogin() {
+        alert('Login to use it');
+    }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function checkLoggedCookie() {
+        let cname = getCookie("logged");
+        if(cname === "" || cname === null || cname === 'false') {
+            buttonNoLogin();
+        } else {
+            location.href = "/add";
+        }
+    }
+</script>
 </html>

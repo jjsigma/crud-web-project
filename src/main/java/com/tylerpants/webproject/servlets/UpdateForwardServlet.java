@@ -13,8 +13,6 @@ public class UpdateForwardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        System.out.println("In update servlet");
-
         RequestDispatcher dispatcher = req.getRequestDispatcher("update.jsp");
         dispatcher.forward(req, resp);
     }
