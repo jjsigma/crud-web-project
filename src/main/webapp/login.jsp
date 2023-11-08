@@ -11,22 +11,22 @@
         <fieldset>
             <label>Username</label>
             <label>
-                <input name ="username" class="form-control" type="text" value>
+                <input name="username" class="form-control" type="text" value>
             </label>
         </fieldset>
         <fieldset>
             <label>Password</label>
             <label>
-                <input name ="password" class="form-control" type="password" value>
+                <input name="password" class="form-control" type="password" value>
             </label>
         </fieldset>
         <button class="btn btn-add" type="submit">Log in</button>
         <%
-            if(request.getAttribute("usernameError") != null && (boolean) request.getAttribute("usernameError")) {
+            if (request.getAttribute("usernameError") != null && (boolean) request.getAttribute("usernameError")) {
                 out.println("<div class='error-message'>Username is invalid</div>");
-            } else if(request.getAttribute("passwordError") != null && (boolean) request.getAttribute("passwordError")) {
+            } else if (request.getAttribute("passwordError") != null && (boolean) request.getAttribute("passwordError")) {
                 out.println("<div class='error-message'>Password is invalid</div>");
-            } else if(request.getAttribute("dataInvalid") != null && (boolean) request.getAttribute("dataInvalid")) {
+            } else if (request.getAttribute("dataInvalid") != null && (boolean) request.getAttribute("dataInvalid")) {
                 out.println("<div class='error-message'>Password is incorrect</div>");
             }
         %>

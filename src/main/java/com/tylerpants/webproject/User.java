@@ -22,12 +22,15 @@ public class User {
         this.password = password;
         this.id = id;
     }
+
     public String getPassword() {
         return password;
     }
+
     public int getId() {
         return id;
     }
+
     private int generateId(String username, String password) {
         return Math.abs(37 * Objects.hash(username, password));
     }

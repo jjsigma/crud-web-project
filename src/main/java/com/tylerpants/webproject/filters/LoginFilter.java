@@ -18,16 +18,14 @@ public class LoginFilter implements Filter {
 
         Pattern usernamePattern = Pattern.compile("\\w{5,}");
         Matcher usernameMatcher = usernamePattern.matcher(username);
-        if(!usernameMatcher.matches()) {
-            System.out.println("Username is invaliD");
+        if (!usernameMatcher.matches()) {
             servletRequest.setAttribute("usernameError", true);
             RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("login.jsp");
             dispatcher.forward(servletRequest, servletResponse);
         }
         Pattern passwordPattern = Pattern.compile("\\w{8,}");
         Matcher passwordMatcher = passwordPattern.matcher(password);
-        if(!passwordMatcher.matches()) {
-            System.out.println("Password is invaliD");
+        if (!passwordMatcher.matches()) {
             servletRequest.setAttribute("passwordError", true);
             RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("login.jsp");
             dispatcher.forward(servletRequest, servletResponse);

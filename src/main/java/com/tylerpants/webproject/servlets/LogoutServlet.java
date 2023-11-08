@@ -11,15 +11,15 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("Logout action");
-        this.eraseCookie(req,resp);
-        this.invalidateSession(req,resp);
+        this.eraseCookie(req, resp);
+        this.invalidateSession(req, resp);
         Cookie loggedInCookie = new Cookie("logged", "false");
         loggedInCookie.setMaxAge(-1);
         resp.addCookie(loggedInCookie);
 
         resp.sendRedirect("/");
     }
+
     private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
@@ -31,9 +31,10 @@ public class LogoutServlet extends HttpServlet {
             }
         }
     }
+
     private void invalidateSession(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if(session != null) {
+        if (session != null) {
             session.invalidate();
         }
     }

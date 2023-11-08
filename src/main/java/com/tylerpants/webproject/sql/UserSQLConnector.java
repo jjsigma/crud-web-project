@@ -1,6 +1,7 @@
 package com.tylerpants.webproject.sql;
 
 import com.tylerpants.webproject.User;
+
 import java.sql.*;
 import java.util.Objects;
 
@@ -24,26 +25,31 @@ public class UserSQLConnector {
     public int getUserId(String username) throws SQLException {
         ResultSet resultSet = getUserResultSet(username);
 
-        if(!resultSet.next()) return -1;
+        if (!resultSet.next()) return -1;
         return resultSet.getInt("id");
     }
+
     public boolean checkIfUsernameExists(String username) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM users WHERE username = '%s'", username));
         return resultSet.next();
     }
+
     public void createUser(User user) throws SQLException {
-        statement.executeUpdate(String.format("INSERT INTO users(id, username, password) VALUES(%d, '%s', '%s')",user.getId(), user.getName(), user.getPassword()));
+        statement.executeUpdate(String.format("INSERT INTO users(id, username, password) VALUES(%d, '%s', '%s')", user.getId(), user.getName(), user.getPassword()));
     }
+
     private ResultSet getUserResultSet(String username) throws SQLException {
-        return statement.executeQuery("SELECT * FROM users WHERE username = '"+ username+"'");
+        return statement.executeQuery("SELECT * FROM users WHERE username = '" + username + "'");
     }
+
     public User getUser(String username) throws SQLException {
         ResultSet resultSet = getUserResultSet(username);
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
         }
         return null; // !!!
     }
+
     public boolean checkIfValid(String username, String password) throws SQLException {
         ResultSet resultSet = getUserResultSet(username);
         String pass = null;

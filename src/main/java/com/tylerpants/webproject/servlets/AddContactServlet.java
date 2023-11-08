@@ -17,11 +17,11 @@ public class AddContactServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         int userId = 0;
-        for(Cookie c : req.getCookies()) {
-            if(c.getName().equals("userId")) userId = Integer.parseInt(c.getValue());
+        for (Cookie c : req.getCookies()) {
+            if (c.getName().equals("userId")) userId = Integer.parseInt(c.getValue());
         }
         ContactsSQLConnector connector = new ContactsSQLConnector(userId);
-        System.out.println("userId: "+req.getParameter("userId"));
+        System.out.println("userId: " + req.getParameter("userId"));
         try {
             connector.addContact(req.getParameter("name"), req.getParameter("surname"), req.getParameter("phone_number"));
         } catch (SQLException e) {

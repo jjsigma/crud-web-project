@@ -24,11 +24,12 @@ public class ContactsSQLConnector {
         }
         this.userId = userId;
     }
+
     public List<Contact> getContactsById() {
         ResultSet resultSet;
         List<Contact> contacts = new ArrayList<>();
         try {
-            resultSet = statement.executeQuery("SELECT * FROM contacts WHERE user_id ="+this.userId);
+            resultSet = statement.executeQuery("SELECT * FROM contacts WHERE user_id =" + this.userId);
             while (resultSet.next()) {
                 Contact contact = new Contact(resultSet.getString("name"), resultSet.getString("surname"), resultSet.getString("phone_number"));
                 contacts.add(contact);
@@ -38,8 +39,27 @@ public class ContactsSQLConnector {
         }
         return !contacts.isEmpty() ? contacts : null;
     }
+    public int getContactId(String name, String surname, String phoneNumber) throws SQLException {
+        String phoneNumEdited = "+"+phoneNumber.trim();
+        String sql = "SELECT id FROM contacts WHERE name = '%s' AND surname = '%s' AND phone_number = '%s'";
+        System.out.println("[CONTACT] "+name+" "+surname+" "+phoneNumEdited);
+        ResultSet resultSet = statement.executeQuery(String.format(sql, name, surname, phoneNumEdited));
+        if(resultSet.next()) {
+            return resultSet.getInt("id");
+        }
+        return -1;
+    }
+
     public void addContact(String name, String surname, String phoneNumber) throws SQLException {
         statement.executeUpdate(String.format("INSERT INTO contacts(name, surname, phone_number, user_id) VALUES ('%s', '%s', '%s', %d)",
                 name, surname, phoneNumber, this.userId));
+    }
+    public void updateContact(int contactId, String name, String surname, String phoneNumber) throws SQLException {
+        statement.executeUpdate(String.format("UPDATE contacts SET name = '%s', surname = '%s', phone_number = '%s' WHERE id = %d", name, surname, phoneNumber, contactId));
+    }
+    public void deleteContact(int contactId) throws SQLException {
+        System.out.println(contactId);
+        String sql = "DELETE FROM contacts WHERE id = "+contactId;
+        statement.executeUpdate(sql);
     }
 }
