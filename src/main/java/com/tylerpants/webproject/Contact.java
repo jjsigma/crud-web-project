@@ -28,7 +28,12 @@ public class Contact {
         this.phoneNumber = phoneNumber;
         this.user = user;
     }
-
+    public Contact(int id, String name, String surname, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+    }
     public Contact(String name, String surname, String phoneNumber) {
         this.name = name;
         this.surname = surname;

@@ -18,7 +18,7 @@ public class UserDao {
         sessionFactory = configuration.buildSessionFactory();
     }
     public User getUserById(int id) {
-        User user = null;
+        User user;
         try(Session session = sessionFactory.openSession()) {
             user = session.get(User.class, id);
         }

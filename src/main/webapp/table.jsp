@@ -64,6 +64,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Phone number</th>
@@ -74,6 +75,7 @@
             <tbody>
             <% if (!loggedIn || contacts == null) { %>
             <tr>
+                <td>0</td>
                 <td>John</td>
                 <td>Doe</td>
                 <td>+12345678910</td>
@@ -88,6 +90,7 @@
             } else {
                 for (int i = 0; i < contacts.size(); i++) {
                     out.println("<tr>");
+                    out.println("<td id = \"id" + i + "\">" + contacts.get(i).getId() + "</td>");
                     out.println("<td id = \"name" + i + "\">" + contacts.get(i).getName() + "</td>");
                     out.println("<td id = \"surname" + i + "\">" + contacts.get(i).getSurname() + "</td>");
                     out.println("<td id = \"phone_number" + i + "\">" + contacts.get(i).getPhoneNumber() + "</td>");
@@ -112,12 +115,13 @@
 </body>
 <script>
     function updateContact(i) {
-        const text = '?name=' + document.getElementById("name" + i).innerText + '&surname=' + document.getElementById("surname" + i).innerText + '&phone_number=' + document.getElementById("phone_number" + i).innerText;
+        const text = '?contactId='+document.getElementById("id"+i).innerText;
         location.href = '/update' + text;
     }
 
     function deleteContact(i) {
-        const text = '?name=' + document.getElementById("name" + i).innerText + '&surname=' + document.getElementById("surname" + i).innerText + '&phone_number=' + document.getElementById("phone_number" + i).innerText;
+        //const text = '?name=' + document.getElementById("name" + i).innerText + '&surname=' + document.getElementById("surname" + i).innerText + '&phone_number=' + document.getElementById("phone_number" + i).innerText;
+        const text = '?contactId=' + document.getElementById("id"+ i).innerText;
         let choice = confirm('Delete contact?');
         if(choice === true) {
             location.href = '/delete'+text

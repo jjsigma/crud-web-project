@@ -1,4 +1,5 @@
 <%@ page import="com.tylerpants.webproject.Contact" %>
+<%@ page import="com.tylerpants.webproject.sql.ContactsDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,7 +7,8 @@
     <link href="styles.css" rel="stylesheet">
 </head>
 <%
-    Contact contact = (Contact) request.getAttribute("contact");
+    Contact contact = new ContactsDao().getContactById(Integer.parseInt(request.getParameter("contactId")));
+    String url = "?contactId="+request.getParameter("contactId");
 %>
 <body>
 <div id="root">
@@ -14,7 +16,7 @@
         <h1>Phone book</h1>
         <h2>Update contact</h2>
         <div class="container">
-            <form action="${pageContext.request.contextPath}/update-contact" method="post">
+            <form action="${pageContext.request.contextPath}/update-contact<%=url%>" method="post">
                 <fieldset>
                     <label>Name</label>
                     <label>
@@ -30,7 +32,7 @@
                 <fieldset>
                     <label>Phone Number</label>
                     <label>
-                        <input name="phone_number" class="form-control" type="text" value="+<%= contact.getPhoneNumber() %>">
+                        <input name="phone_number" class="form-control" type="text" value="<%= contact.getPhoneNumber() %>">
                     </label>
                 </fieldset>
                 <button class='btn btn-add' type='submit'>Save</button>

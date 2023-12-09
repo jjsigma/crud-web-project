@@ -29,18 +29,13 @@ public class ContactsDao {
             return query.list();
         }
     }
-//    public int getContactId(Contact contact) {
-//        int resultId = -1;
-//        try(Session session = sessionFactory.openSession()) {
-//            String hql = "select id from Contact where name = :name and surname = :surname and phoneNumber = :phone";
-//            Query<Integer> query = session.createQuery(hql, int.class);
-//            query.setParameter("name", contact.getName());
-//            query.setParameter("surname", contact.getSurname());
-//            query.setParameter("phone", contact.getPhoneNumber());
-//            resultId = query.getSingleResult();
-//        }
-//        return resultId;
-//    }
+    public Contact getContactById(int id) {
+        Contact contact;
+        try(Session session = sessionFactory.openSession()) {
+            contact = session.get(Contact.class, id);
+        }
+        return contact;
+    }
     public void addContact(Contact contact) {
         try(Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -61,9 +56,8 @@ public class ContactsDao {
     }
     public void deleteContact(Contact contact) {
         try(Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+            session.beginTransaction();
             session.remove(contact);
-            transaction.commit();
             session.flush();
         }
     }
