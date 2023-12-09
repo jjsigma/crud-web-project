@@ -1,4 +1,4 @@
-<%@ page import="com.tylerpants.webproject.sql.ContactsSQLConnector" %>
+<%@ page import="com.tylerpants.webproject.sql.ContactsSQLConnectorOld" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.tylerpants.webproject.Contact" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,7 +17,7 @@
     private String username;
     private String sessionID;
     private boolean loggedIn;
-    private ContactsSQLConnector userSQLConnector;
+    private ContactsSQLConnectorOld userSQLConnector;
     private List<Contact> contacts;
 %>
 <nav class="header">
@@ -36,7 +36,7 @@
             out.println("<form method=\"post\" action=\"/logout\"><button class ='btn btn-add' type = 'submit'> Logout </button></form>");
             out.print("<h3>" + username + " | " + userId + "</h3>");
             out.print("<h3>JSESSIONID: " + sessionID + "</h3>");
-            userSQLConnector = new ContactsSQLConnector(userId);
+            userSQLConnector = new ContactsSQLConnectorOld(userId);
             contacts = userSQLConnector.getContactsById();
         } else {
             response.addCookie(new Cookie("logged", "false"));
@@ -114,7 +114,12 @@
     }
 
     function buttonNoLogin() {
+        <%
+        if(loggedIn) {%>
+        alert('You cant redact John Doe!');
+        <% } else { %>
         alert('Login to use it');
+        <% } %>
     }
 
     function getCookie(cname) {

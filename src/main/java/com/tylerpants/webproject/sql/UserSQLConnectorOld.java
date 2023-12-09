@@ -5,14 +5,14 @@ import com.tylerpants.webproject.User;
 import java.sql.*;
 import java.util.Objects;
 
-public class UserSQLConnector {
+public class UserSQLConnectorOld {
     private final Connection connection;
     private final Statement statement;
     private static final String url = "jdbc:mysql://localhost:3306/web_project_db",
             user = "root",
             password = "root";
 
-    public UserSQLConnector() {
+    public UserSQLConnectorOld() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
@@ -35,7 +35,7 @@ public class UserSQLConnector {
     }
 
     public void createUser(User user) throws SQLException {
-        statement.executeUpdate(String.format("INSERT INTO users(id, username, password) VALUES(%d, '%s', '%s')", user.getId(), user.getName(), user.getPassword()));
+        statement.executeUpdate(String.format("INSERT INTO users(id, username, password) VALUES(%d, '%s', '%s')", user.getId(), user.getUsername(), user.getPassword()));
     }
 
     private ResultSet getUserResultSet(String username) throws SQLException {

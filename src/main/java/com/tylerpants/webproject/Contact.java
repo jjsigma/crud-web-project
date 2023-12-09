@@ -1,10 +1,26 @@
 package com.tylerpants.webproject;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "contacts")
 public class Contact {
-    private int userId;
+    @Id
+    private int id;
     private String name;
     private String surname;
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User userId;
 
     public Contact(String name, String surname, String phoneNumber) {
         this.name = name;
@@ -14,38 +30,6 @@ public class Contact {
 
     public Contact(String name, String phoneNumber) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

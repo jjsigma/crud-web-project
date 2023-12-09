@@ -1,7 +1,7 @@
 package com.tylerpants.webproject.servlets;
 
 import com.tylerpants.webproject.User;
-import com.tylerpants.webproject.sql.UserSQLConnector;
+import com.tylerpants.webproject.sql.UserSQLConnectorOld;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserSQLConnector connector = new UserSQLConnector();
+        UserSQLConnectorOld connector = new UserSQLConnectorOld();
         try {
             if (!connector.checkIfUsernameExists(req.getParameter("username"))) {
                 User user = new User(req.getParameter("username"), req.getParameter("password"));

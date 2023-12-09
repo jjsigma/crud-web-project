@@ -1,6 +1,6 @@
 package com.tylerpants.webproject.servlets;
 
-import com.tylerpants.webproject.sql.ContactsSQLConnector;
+import com.tylerpants.webproject.sql.ContactsSQLConnectorOld;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ public class DeleteServlet extends HttpServlet {
         for (Cookie c : req.getCookies()) {
             if (c.getName().equals("userId")) userId = Integer.parseInt(c.getValue());
         }
-        ContactsSQLConnector connector = new ContactsSQLConnector(userId);
+        ContactsSQLConnectorOld connector = new ContactsSQLConnectorOld(userId);
         try {
 
             int contactId = connector.getContactId(req.getParameter("name"), req.getParameter("surname"), req.getParameter("phone_number"));

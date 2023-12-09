@@ -1,7 +1,5 @@
 package com.tylerpants.webproject.servlets;
 
-import com.tylerpants.webproject.sql.UserSQLConnector;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
