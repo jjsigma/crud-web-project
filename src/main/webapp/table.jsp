@@ -1,6 +1,9 @@
 <%@ page import="com.tylerpants.webproject.sql.ContactsSQLConnectorOld" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.tylerpants.webproject.Contact" %>
+<%@ page import="com.tylerpants.webproject.sql.ContactsDao" %>
+<%@ page import="com.tylerpants.webproject.User" %>
+<%@ page import="com.tylerpants.webproject.sql.UserDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,8 +20,9 @@
     private String username;
     private String sessionID;
     private boolean loggedIn;
-    private ContactsSQLConnectorOld userSQLConnector;
+    private ContactsDao contactsDao;
     private List<Contact> contacts;
+    private User user;
 %>
 <nav class="header">
     <%
@@ -36,10 +40,18 @@
             out.println("<form method=\"post\" action=\"/logout\"><button class ='btn btn-add' type = 'submit'> Logout </button></form>");
             out.print("<h3>" + username + " | " + userId + "</h3>");
             out.print("<h3>JSESSIONID: " + sessionID + "</h3>");
-            userSQLConnector = new ContactsSQLConnectorOld(userId);
-            contacts = userSQLConnector.getContactsById();
+            if(user == null) {
+                user = new UserDao().getUserById(userId);
+            }
+            if(contactsDao == null) {
+                contactsDao = new ContactsDao();
+            }
+            contacts = contactsDao.getAllContacts(user);
         } else {
             response.addCookie(new Cookie("logged", "false"));
+            user = null;
+            contactsDao = null;
+            contacts = null;
             out.println("<form method=\"post\" action=\"login.jsp\"><button class ='btn btn-add' type = 'submit'> Login </button></form>");
         }
     %>
@@ -74,7 +86,6 @@
             </tr>
             <%
             } else {
-                List<Contact> contacts = userSQLConnector.getContactsById();
                 for (int i = 0; i < contacts.size(); i++) {
                     out.println("<tr>");
                     out.println("<td id = \"name" + i + "\">" + contacts.get(i).getName() + "</td>");

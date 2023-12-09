@@ -1,5 +1,7 @@
 package com.tylerpants.webproject.servlets;
 
+import com.tylerpants.webproject.Contact;
+import com.tylerpants.webproject.sql.ContactsDao;
 import com.tylerpants.webproject.sql.ContactsSQLConnectorOld;
 
 import javax.servlet.RequestDispatcher;
@@ -17,18 +19,8 @@ public class UpdateForwardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        int userId = 0;
-        for (Cookie c : req.getCookies()) {
-            if (c.getName().equals("userId")) userId = Integer.parseInt(c.getValue());
-        }
-        ContactsSQLConnectorOld connector = new ContactsSQLConnectorOld(userId);
-        try {
-            int contactId = connector.getContactId(req.getParameter("name"), req.getParameter("surname"),
-                    req.getParameter("phone_number"));
-            req.setAttribute("contactId", contactId);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Contact contact = new Contact(req.getParameter("name"), req.getParameter("surname"), req.getParameter("phone_number"));
+        req.setAttribute("contact", contact);
         RequestDispatcher dispatcher = req.getRequestDispatcher("update.jsp");
         dispatcher.forward(req, resp);
     }

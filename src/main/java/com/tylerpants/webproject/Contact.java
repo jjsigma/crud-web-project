@@ -20,16 +20,18 @@ public class Contact {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
+    private User user;
+
+    public Contact(String name, String surname, String phoneNumber, User user) {
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.user = user;
+    }
 
     public Contact(String name, String surname, String phoneNumber) {
         this.name = name;
         this.surname = surname;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Contact(String name, String phoneNumber) {
-        this.name = name;
         this.phoneNumber = phoneNumber;
     }
 }

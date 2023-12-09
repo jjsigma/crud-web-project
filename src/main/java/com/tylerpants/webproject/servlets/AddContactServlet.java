@@ -1,6 +1,9 @@
 package com.tylerpants.webproject.servlets;
 
-import com.tylerpants.webproject.sql.ContactsSQLConnectorOld;
+import com.tylerpants.webproject.Contact;
+import com.tylerpants.webproject.User;
+import com.tylerpants.webproject.sql.ContactsDao;
+import com.tylerpants.webproject.sql.UserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/add-contact")
 public class AddContactServlet extends HttpServlet {
@@ -20,13 +22,10 @@ public class AddContactServlet extends HttpServlet {
         for (Cookie c : req.getCookies()) {
             if (c.getName().equals("userId")) userId = Integer.parseInt(c.getValue());
         }
-        ContactsSQLConnectorOld connector = new ContactsSQLConnectorOld(userId);
-        System.out.println("userId: " + req.getParameter("userId"));
-        try {
-            connector.addContact(req.getParameter("name"), req.getParameter("surname"), req.getParameter("phone_number"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        User user = new UserDao().getUserById(userId);
+        ContactsDao contactsDao = new ContactsDao();
+        Contact contact = new Contact(req.getParameter("name"), req.getParameter("surname"), req.getParameter("phone_number"), user);
+        contactsDao.addContact(contact);
 
         resp.sendRedirect("/");
     }
