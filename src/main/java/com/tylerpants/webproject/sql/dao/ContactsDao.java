@@ -1,5 +1,7 @@
-package com.tylerpants.webproject.sql;
+package com.tylerpants.webproject.sql.dao;
 
+import com.tylerpants.webproject.sql.entities.Contact;
+import com.tylerpants.webproject.sql.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

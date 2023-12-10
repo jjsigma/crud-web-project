@@ -1,5 +1,5 @@
-<%@ page import="com.tylerpants.webproject.sql.Contact" %>
-<%@ page import="com.tylerpants.webproject.sql.ContactsDao" %>
+<%@ page import="com.tylerpants.webproject.sql.entities.Contact" %>
+<%@ page import="com.tylerpants.webproject.sql.dao.ContactsDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

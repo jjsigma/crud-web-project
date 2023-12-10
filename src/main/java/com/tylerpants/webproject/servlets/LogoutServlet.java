@@ -17,7 +17,6 @@ public class LogoutServlet extends HttpServlet {
 
         resp.sendRedirect("/");
     }
-
     private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
@@ -29,12 +28,10 @@ public class LogoutServlet extends HttpServlet {
             }
         }
     }
-
     private void invalidateSession(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         if (session != null) {
             session.invalidate();
         }
     }
-
 }

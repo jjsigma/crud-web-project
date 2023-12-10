@@ -1,7 +1,7 @@
 package com.tylerpants.webproject.servlets;
 
-import com.tylerpants.webproject.sql.User;
-import com.tylerpants.webproject.sql.UserDao;
+import com.tylerpants.webproject.sql.entities.User;
+import com.tylerpants.webproject.sql.dao.UserDao;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

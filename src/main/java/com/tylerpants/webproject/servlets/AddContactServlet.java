@@ -1,9 +1,9 @@
 package com.tylerpants.webproject.servlets;
 
-import com.tylerpants.webproject.sql.Contact;
-import com.tylerpants.webproject.sql.User;
-import com.tylerpants.webproject.sql.ContactsDao;
-import com.tylerpants.webproject.sql.UserDao;
+import com.tylerpants.webproject.sql.entities.Contact;
+import com.tylerpants.webproject.sql.entities.User;
+import com.tylerpants.webproject.sql.dao.ContactsDao;
+import com.tylerpants.webproject.sql.dao.UserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

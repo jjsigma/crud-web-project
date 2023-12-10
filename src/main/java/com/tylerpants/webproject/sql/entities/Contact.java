@@ -1,4 +1,4 @@
-package com.tylerpants.webproject.sql;
+package com.tylerpants.webproject.sql.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
