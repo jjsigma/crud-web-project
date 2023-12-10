@@ -1,8 +1,5 @@
 package com.tylerpants.webproject.servlets;
 
-import com.tylerpants.webproject.Contact;
-import com.tylerpants.webproject.sql.ContactsDao;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

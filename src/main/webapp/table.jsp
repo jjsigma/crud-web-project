@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.tylerpants.webproject.Contact" %>
+<%@ page import="com.tylerpants.webproject.sql.Contact" %>
 <%@ page import="com.tylerpants.webproject.sql.ContactsDao" %>
-<%@ page import="com.tylerpants.webproject.User" %>
+<%@ page import="com.tylerpants.webproject.sql.User" %>
 <%@ page import="com.tylerpants.webproject.sql.UserDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

@@ -1,4 +1,4 @@
-<%@ page import="com.tylerpants.webproject.Contact" %>
+<%@ page import="com.tylerpants.webproject.sql.Contact" %>
 <%@ page import="com.tylerpants.webproject.sql.ContactsDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

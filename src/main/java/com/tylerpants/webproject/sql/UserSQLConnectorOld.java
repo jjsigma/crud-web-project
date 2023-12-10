@@ -1,7 +1,5 @@
 package com.tylerpants.webproject.sql;
 
-import com.tylerpants.webproject.User;
-
 import java.sql.*;
 import java.util.Objects;
 
@@ -40,14 +38,6 @@ public class UserSQLConnectorOld {
 
     private ResultSet getUserResultSet(String username) throws SQLException {
         return statement.executeQuery("SELECT * FROM users WHERE username = '" + username + "'");
-    }
-
-    public User getUser(String username) throws SQLException {
-        ResultSet resultSet = getUserResultSet(username);
-        if (resultSet.next()) {
-            return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
-        }
-        return null; // !!!
     }
 
     public boolean checkIfValid(String username, String password) throws SQLException {

@@ -1,7 +1,5 @@
 package com.tylerpants.webproject.sql;
 
-import com.tylerpants.webproject.Contact;
-import com.tylerpants.webproject.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

@@ -1,4 +1,4 @@
-package com.tylerpants.webproject;
+package com.tylerpants.webproject.sql;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

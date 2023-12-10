@@ -1,7 +1,7 @@
 package com.tylerpants.webproject.servlets;
 
-import com.tylerpants.webproject.Contact;
-import com.tylerpants.webproject.User;
+import com.tylerpants.webproject.sql.Contact;
+import com.tylerpants.webproject.sql.User;
 import com.tylerpants.webproject.sql.ContactsDao;
 import com.tylerpants.webproject.sql.UserDao;
 
