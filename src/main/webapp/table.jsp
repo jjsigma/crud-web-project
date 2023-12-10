@@ -1,4 +1,3 @@
-<%@ page import="com.tylerpants.webproject.sql.ContactsSQLConnectorOld" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.tylerpants.webproject.Contact" %>
 <%@ page import="com.tylerpants.webproject.sql.ContactsDao" %>
